@@ -42,7 +42,7 @@ def to_input( pathfile, to='(-3,0,0)', width=8, height=8, name="temp" ):
 """
 
 # Conv
-def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, caption=" " ):
+def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", width=1, height=40, depth=40, opacity = 0.5, caption=" " ):
     return r"""
 \pic[shift={"""+ offset +"""}] at """+ to +""" 
     {Box={
@@ -53,7 +53,8 @@ def to_Conv( name, s_filer=256, n_filer=64, offset="(0,0,0)", to="(0,0,0)", widt
         fill=\ConvColor,
         height="""+ str(height) +""",
         width="""+ str(width) +""",
-        depth="""+ str(depth) +"""
+        depth="""+ str(depth) +""",
+        opacity="""+ str(opacity) +""",
         }
     };
 """
@@ -111,22 +112,22 @@ def to_ConvConvConvRelu( name, s_filer=256, n_filer=(64,64,64), offset="(0,0,0)"
     };
 """
 
-# def to_ConvConvConvConvRelu( name, s_filer=256, n_filer=(64,64,64,64), offset="(0,0,0)", to="(0,0,0)", width=(2,2,2,2), height=40, depth=40, caption=" " ):    
-#     return r"""
-# \pic[shift={ """+ offset +""" }] at """+ to +""" 
-#     {RightBandedBox={
-#         name="""+ name +""",
-#         caption="""+ caption +""",
-#         xlabel={{ """+ str(n_filer[0]) +""", """+ str(n_filer[1]) +""", """+ str(n_filer[2]) +""", """+ str(n_filer[3]) +"""  }},
-#         zlabel="""+ str(s_filer) +""",
-#         fill=\ConvColor,
-#         bandfill=\ConvReluColor,
-#         height="""+ str(height) +""",
-#         width={ """+ str(width[0]) +""" , """+ str(width[1]) +""", """+ str(width[2]) +""" , """+ str(width[3]) +""" },
-#         depth="""+ str(depth) +"""
-#         }
-#     };
-# """
+def to_ConvConvConvConvRelu( name, s_filer=256, n_filer=(64,64,64,64), offset="(0,0,0)", to="(0,0,0)", width=(2,2,2,2), height=40, depth=40, caption=" " ):    
+    return r"""
+\pic[shift={ """+ offset +""" }] at """+ to +""" 
+    {RightBandedBox={
+        name="""+ name +""",
+        caption="""+ caption +""",
+        xlabel={{ """+ str(n_filer[0]) +""", """+ str(n_filer[1]) +""", """+ str(n_filer[2]) +""", """+ str(n_filer[3]) +"""  }},
+        zlabel="""+ str(s_filer) +""",
+        fill=\ConvColor,
+        bandfill=\ConvReluColor,
+        height="""+ str(height) +""",
+        width={ """+ str(width[0]) +""" , """+ str(width[1]) +""", """+ str(width[2]) +""" , """+ str(width[3]) +""" },
+        depth="""+ str(depth) +"""
+        }
+    };
+"""
 
 # Pool
 def to_Pool(name, offset="(0,0,0)", to="(0,0,0)", width=1, height=32, depth=32, opacity=0.5, caption=" "):
@@ -253,6 +254,17 @@ def to_sidetop( of, to, of_width = 1, offset = 1):
 \draw [connection]  ("""+of+"""-east)  
 -- node {\midarrow}("""+of+"""-east2)
 -- node {\midarrow} ("""+to+"""-north);
+"""
+
+def to_sidebottom( of, to, of_width = 1, offset = 1):
+    pos = 1 + offset / of_width * 5
+    # pos2 = 1 + (offset - of_offset) / to_width * 5
+
+    return r"""
+\path ("""+ of +"""-west) -- ("""+ of +"""-east) coordinate[pos="""+ str(pos) +"""] ("""+ of +"""-east2) ;
+\draw [connection]  ("""+of+"""-east)  
+-- node {\midarrow}("""+of+"""-east2)
+-- node {\midarrow} ("""+to+"""-south);
 """
 
 def to_dotted(of,to):

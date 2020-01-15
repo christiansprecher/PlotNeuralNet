@@ -22,6 +22,8 @@
 \tikzstyle{connection}=[ultra thick,every node/.style={sloped,allow upside down},draw=\edgecolor,opacity=0.7]
 \tikzstyle{copyconnection}=[ultra thick,every node/.style={sloped,allow upside down},draw={rgb:blue,4;red,1;green,1;black,3},opacity=0.7]
 
+\node[canvas is zy plane at x=0] (input_img) at (-3,0,0) {\includegraphics[width=8cm,height=8cm]{room.png}};
+
 \pic[shift={ (0,0,0) }] at (0,0,0) 
     {RightBandedBox={
         name=ccr_b1,
@@ -169,13 +171,14 @@
         fill=\ConvColor,
         height=12,
         width=2,
-        depth=12
+        depth=12,
+        opacity=0.5,
         }
     };
 
 \draw [connection]  (pool_b5-east)    -- node {\midarrow} (c_b5-west);
 
-\pic[shift={(0.5,0,0)}] at (c_b5-east) 
+\pic[shift={(1.0,0,0)}] at (c_b5-east) 
     {Box={
         name=dc_b5,
         caption=,
@@ -206,18 +209,19 @@
         fill=\ConvColor,
         height=16,
         width=2,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \path (pool_b4-west) -- (pool_b4-east) coordinate[pos=3.5] (pool_b4-east2) ;
-\path (c_b4-east) -- (c_b4-west) coordinate[pos=15.75] (c_b4-west2) ;
+\path (c_b4-east) -- (c_b4-west) coordinate[pos=17.0] (c_b4-west2) ;
 \draw [connection]  (pool_b4-east)  
 -- node {}(pool_b4-east2)
 -- node {\midarrow}(c_b4-west2)
 -- node {\midarrow} (c_b4-west);
 
-\pic[shift={(1,0,0)}] at (dc_b5-east) 
+\pic[shift={(1.5,0,0)}] at (dc_b5-east) 
 {Ball={
     name=plus_b4,
     fill=\SumColor,
@@ -229,128 +233,364 @@
 
 \draw [connection]  (dc_b5-east)    -- node {\midarrow} (plus_b4-west);
 
-\path (c_b4-west) -- (c_b4-east) coordinate[pos=3.5] (c_b4-east2) ;
+\path (c_b4-west) -- (c_b4-east) coordinate[pos=4.75] (c_b4-east2) ;
 \draw [connection]  (c_b4-east)  
 -- node {\midarrow}(c_b4-east2)
 -- node {\midarrow} (plus_b4-north);
 
-\pic[shift={(1,3,0)}] at (plus_b4-east) 
+\pic[shift={(3.5,3,0)}] at (plus_b4-east) 
     {Box={
         name=aspp_b1,
-        caption=dilation_rate 6,
+        caption= ,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_b1-east) 
     {Box={
         name=aspp_b2,
-        caption=,
+        caption=dilation3,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_b2-east) 
     {Box={
         name=aspp_b3,
-        caption=,
+        caption= ,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_b3-east) 
     {Box={
         name=aspp_b4,
-        caption=,
+        caption= ,
         xlabel={{16, }},
         zlabel=I/8,
         fill=\ConvColor,
         height=16,
         width=2,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
-\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=1.1] (plus_b4-east2) ;
-\path (aspp_b1-east) -- (aspp_b1-west) coordinate[pos=2.8] (aspp_b1-west2) ;
+\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=3.0] (plus_b4-east2) ;
+\path (aspp_b1-east) -- (aspp_b1-west) coordinate[pos=4.0] (aspp_b1-west2) ;
 \draw [connection]  (plus_b4-east)  
 -- node {}(plus_b4-east2)
 -- node {\midarrow}(aspp_b1-west2)
 -- node {\midarrow} (aspp_b1-west);
 
-\pic[shift={(1,-3,0)}] at (plus_b4-east) 
+\pic[shift={(3.5,-3,0)}] at (plus_b4-east) 
     {Box={
         name=aspp_c1,
-        caption=,
+        caption= ,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_c1-east) 
     {Box={
         name=aspp_c2,
-        caption=,
+        caption=dilation6,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_c2-east) 
     {Box={
         name=aspp_c3,
-        caption=dilation_rate 6,
+        caption= ,
         xlabel={{32, }},
         zlabel=,
         fill=\ConvColor,
         height=16,
         width=2.5,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
 \pic[shift={(0,0,0)}] at (aspp_c3-east) 
     {Box={
         name=aspp_c4,
+        caption= ,
+        xlabel={{16, }},
+        zlabel=I/8,
+        fill=\ConvColor,
+        height=16,
+        width=2,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=3.0] (plus_b4-east2) ;
+\path (aspp_c1-east) -- (aspp_c1-west) coordinate[pos=4.0] (aspp_c1-west2) ;
+\draw [connection]  (plus_b4-east)  
+-- node {}(plus_b4-east2)
+-- node {\midarrow}(aspp_c1-west2)
+-- node {\midarrow} (aspp_c1-west);
+
+\pic[shift={(3.5,-8.5,0)}] at (plus_b4-east) 
+    {Box={
+        name=aspp_d1,
+        caption= ,
+        xlabel={{32, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=16,
+        width=2.5,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\pic[shift={(0,0,0)}] at (aspp_d1-east) 
+    {Box={
+        name=aspp_d2,
+        caption=dilation12,
+        xlabel={{32, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=16,
+        width=2.5,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\pic[shift={(0,0,0)}] at (aspp_d2-east) 
+    {Box={
+        name=aspp_d3,
+        caption= ,
+        xlabel={{32, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=16,
+        width=2.5,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\pic[shift={(0,0,0)}] at (aspp_d3-east) 
+    {Box={
+        name=aspp_d4,
+        caption= ,
+        xlabel={{16, }},
+        zlabel=I/8,
+        fill=\ConvColor,
+        height=16,
+        width=2,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=3.0] (plus_b4-east2) ;
+\path (aspp_d1-east) -- (aspp_d1-west) coordinate[pos=4.0] (aspp_d1-west2) ;
+\draw [connection]  (plus_b4-east)  
+-- node {}(plus_b4-east2)
+-- node {\midarrow}(aspp_d1-west2)
+-- node {\midarrow} (aspp_d1-west);
+
+\pic[shift={(0,5.5,0)}] at (aspp_b4-west) 
+    {Box={
+        name=aspp_a4,
+        caption=dilation1,
+        xlabel={{32, }},
+        zlabel=I/8,
+        fill=\ConvColor,
+        height=16,
+        width=2,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=3.0] (plus_b4-east2) ;
+\path (aspp_a4-east) -- (aspp_a4-west) coordinate[pos=8.5] (aspp_a4-west2) ;
+\draw [connection]  (plus_b4-east)  
+-- node {}(plus_b4-east2)
+-- node {\midarrow}(aspp_a4-west2)
+-- node {\midarrow} (aspp_a4-west);
+
+\pic[shift={(2.25,-3,0)}] at (aspp_b4-east) 
+    {Box={
+        name=aspp_con1,
+        caption= ,
+        xlabel={{, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=12,
+        width=0.5,
+        depth=12,
+        opacity=0.2,
+        }
+    };
+
+\pic[shift={(0.15,0,0)}] at (aspp_con1-east) 
+    {Box={
+        name=aspp_con2,
+        caption= ,
+        xlabel={{, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=12,
+        width=0.5,
+        depth=12,
+        opacity=0.2,
+        }
+    };
+
+\pic[shift={(0.15,0,0)}] at (aspp_con2-east) 
+    {Box={
+        name=aspp_con3,
+        caption= ,
+        xlabel={{, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=12,
+        width=0.5,
+        depth=12,
+        opacity=0.2,
+        }
+    };
+
+\pic[shift={(0.15,0,0)}] at (aspp_con3-east) 
+    {Box={
+        name=aspp_con4,
+        caption= ,
+        xlabel={{, }},
+        zlabel=,
+        fill=\ConvColor,
+        height=12,
+        width=0.5,
+        depth=12,
+        opacity=0.2,
+        }
+    };
+
+\pic[shift={(-0.15,0,0)}] at (aspp_con1-west) 
+    {Box={
+        name=aspp_con_env,
+        caption=concatenation,
+        xlabel={{64, }},
+        zlabel=I/8,
+        fill=\ConvColor,
+        height=16,
+        width=5.75,
+        depth=16,
+        opacity=0.5,
+        }
+    };
+
+\path (aspp_a4-west) -- (aspp_a4-east) coordinate[pos=7.6875] (aspp_a4-east2) ;
+\draw [connection]  (aspp_a4-east)  
+-- node {\midarrow}(aspp_a4-east2)
+-- node {\midarrow} (aspp_con_env-north);
+
+\path (aspp_b4-west) -- (aspp_b4-east) coordinate[pos=7.6875] (aspp_b4-east2) ;
+\draw [connection]  (aspp_b4-east)  
+-- node {\midarrow}(aspp_b4-east2)
+-- node {\midarrow} (aspp_con_env-north);
+
+\path (aspp_c4-west) -- (aspp_c4-east) coordinate[pos=7.6875] (aspp_c4-east2) ;
+\draw [connection]  (aspp_c4-east)  
+-- node {\midarrow}(aspp_c4-east2)
+-- node {\midarrow} (aspp_con_env-south);
+
+\path (aspp_d4-west) -- (aspp_d4-east) coordinate[pos=7.6875] (aspp_d4-east2) ;
+\draw [connection]  (aspp_d4-east)  
+-- node {\midarrow}(aspp_d4-east2)
+-- node {\midarrow} (aspp_con_env-south);
+
+\pic[shift={(3.5,0,0)}] at (aspp_con_env-east) 
+    {Box={
+        name=aspp_con_conv,
         caption=,
         xlabel={{16, }},
         zlabel=I/8,
         fill=\ConvColor,
         height=16,
         width=2,
-        depth=16
+        depth=16,
+        opacity=0.5,
         }
     };
 
-\path (plus_b4-west) -- (plus_b4-east) coordinate[pos=1.1] (plus_b4-east2) ;
-\path (aspp_c1-east) -- (aspp_c1-west) coordinate[pos=2.8] (aspp_c1-west2) ;
-\draw [connection]  (plus_b4-east)  
--- node {}(plus_b4-east2)
--- node {\midarrow}(aspp_c1-west2)
--- node {\midarrow} (aspp_c1-west);
+\draw [connection]  (aspp_con_env-east)    -- node {\midarrow} (aspp_con_conv-west);
+
+\pic[shift={(3.5,0,0)}] at (aspp_con_conv-east) 
+    {Box={
+        name=decoder,
+        caption=upsampling,
+        xlabel={{16, }},
+        zlabel=,
+        fill=\DcnvColor,
+        height=40,
+        width=2,
+        depth=40
+        }
+    };
+
+\pic[shift={(0,0,0)}] at (decoder-east) 
+    {Box={
+        name=output,
+        caption=,
+        xlabel={{(1), }},
+        zlabel=I,
+        fill=\ConvColor,
+        height=40,
+        width=1,
+        depth=40,
+        opacity=0.5,
+        }
+    };
+
+\draw[densely dashed]
+(aspp_con_conv-nearnortheast) -- (decoder-nearnorthwest)
+(aspp_con_conv-nearsoutheast) -- (decoder-nearsouthwest)
+(aspp_con_conv-farsoutheast) -- (decoder-farsouthwest)
+(aspp_con_conv-farnortheast) -- (decoder-farnorthwest)
+;
+
+\draw [connection]  (aspp_con_conv-east)    -- node {\midarrow} (decoder-west);
+
+\node[canvas is zy plane at x=0] (output_img) at (39,0,0) {\includegraphics[width=8cm,height=8cm]{edge.png}};
 
 \end{tikzpicture}
 \end{document}
