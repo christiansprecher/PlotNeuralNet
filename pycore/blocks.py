@@ -2,7 +2,7 @@
 from .tikzeng import *
 
 #define new block
-def block_2ConvPool( name, botton, top, s_filer=256, n_filer=64, offset="(1,0,0)", size=(32,32,3.5), opacity=0.5 ):
+def block_2ConvPool( name, botton, top, s_filer=256, n_filer=64, offset="(1,0,0)", size=(32,32,3.5), opacity=0.5 , caption = ''):
     return [
     to_ConvConvRelu( 
         name="ccr_{}".format( name ),
@@ -12,7 +12,8 @@ def block_2ConvPool( name, botton, top, s_filer=256, n_filer=64, offset="(1,0,0)
         to="({}-east)".format( botton ), 
         width=(size[2],size[2]), 
         height=size[0], 
-        depth=size[1],   
+        depth=size[1],
+        caption=caption,  
         ),    
     to_Pool(         
         name="{}".format( top ), 
@@ -28,6 +29,32 @@ def block_2ConvPool( name, botton, top, s_filer=256, n_filer=64, offset="(1,0,0)
         )
     ]
 
+def block_3ConvPool( name, botton, top, s_filer=256, n_filer=(64, 64, 64), offset="(1,0,0)", size=(32,32,3.5), opacity=0.5 , caption = ''):
+    return [
+    to_ConvConvConvRelu( 
+        name="ccr_{}".format( name ),
+        s_filer=str(s_filer), 
+        n_filer=n_filer, 
+        offset=offset, 
+        to="({}-east)".format( botton ), 
+        width=(size[2],size[2], size[2]), 
+        height=size[0], 
+        depth=size[1],
+        caption = caption,   
+        ),    
+    to_Pool(         
+        name="{}".format( top ), 
+        offset="(0,0,0)", 
+        to="(ccr_{}-east)".format( name ),  
+        width=1,         
+        height=size[0] - int(size[0]/4), 
+        depth=size[1] - int(size[0]/4), 
+        opacity=opacity, ),
+    to_connection( 
+        "{}".format( botton ), 
+        "ccr_{}".format( name )
+        )
+    ]
 
 def block_Unconv( name, botton, top, s_filer=256, n_filer=64, offset="(1,0,0)", size=(32,32,3.5), opacity=0.5 ):
     return [
