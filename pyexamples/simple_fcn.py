@@ -63,14 +63,14 @@ arch = [
     to_side( of='plus_b4', to='aspp_c1', of_offset = 2, of_width = 5, to_width = 2.5, offset = 3.5),
 
     # Path D
-    to_Conv( name='aspp_d1', s_filer='', n_filer=32, offset="(3.5,-8.5,0)", to="(plus_b4-east)", width=2.5, height=16, depth=16, caption=' '),
+    to_Conv( name='aspp_d1', s_filer='', n_filer=32, offset="(3.5,-9.0,0)", to="(plus_b4-east)", width=2.5, height=16, depth=16, caption=' '),
     to_Conv( name='aspp_d2', s_filer='', n_filer=32, offset="(0,0,0)", to="(aspp_d1-east)", width=2.5, height=16, depth=16, caption='dilation12'),
     to_Conv( name='aspp_d3', s_filer='', n_filer=32, offset="(0,0,0)", to="(aspp_d2-east)", width=2.5, height=16, depth=16, caption=' '),
     to_Conv( name='aspp_d4', s_filer='I/8', n_filer=16, offset="(0,0,0)", to="(aspp_d3-east)", width=2, height=16, depth=16, caption=' '),
     to_side( of='plus_b4', to='aspp_d1', of_offset = 2 , of_width = 5, to_width = 2.5, offset = 3.5),
 
     # Path A
-    to_Conv( name='aspp_a4', s_filer='I/8', n_filer=32, offset="(0,5.5,0)", to="(aspp_b4-west)", width=2, height=16, depth=16, caption='dilation1'),
+    to_Conv( name='aspp_a4', s_filer='I/8', n_filer=32, offset="(0.0,6.0,0)", to="(aspp_b4-west)", width=2, height=16, depth=16, caption='dilation1'),
     to_side( of='plus_b4', to='aspp_a4', of_offset = 2 , of_width = 5, to_width = 2, offset = 5),
 
     # to_ConvConvConvConvRelu( name='aspp_b', s_filer='I/8', n_filer=(32,32,32,16), offset="(1,3,0)", to="(plus_b4-east)", width=(2.5,2.5,2.5,2), height=16, depth=16, caption='dil3'),
